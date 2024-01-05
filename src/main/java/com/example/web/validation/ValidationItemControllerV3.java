@@ -2,6 +2,8 @@ package com.example.web.validation;
 
 import com.example.domain.item.Item;
 import com.example.domain.item.ItemRepository;
+import com.example.domain.item.SaveCheck;
+import com.example.domain.item.UpdateCheck;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -35,7 +37,7 @@ public class ValidationItemControllerV3 {
     }
 
     @PostMapping("/add")
-    public String add(@Validated @ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String add(@Validated(SaveCheck.class) @ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         Integer price = item.getPrice();
         Integer quantity = item.getQuantity();
 
@@ -72,7 +74,7 @@ public class ValidationItemControllerV3 {
     }
 
     @PostMapping("/{itemId}/edit")
-    public String edit(@PathVariable Long itemId, @Validated @ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String edit(@PathVariable Long itemId, @Validated(UpdateCheck.class) @ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         Integer price = item.getPrice();
         Integer quantity = item.getQuantity();
 
