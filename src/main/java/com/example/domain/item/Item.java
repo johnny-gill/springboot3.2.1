@@ -11,7 +11,7 @@ import org.hibernate.validator.constraints.Range;
 public class Item {
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "공백 놉")
     private String itemName;
 
     @NotNull
