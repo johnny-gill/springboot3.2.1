@@ -18,8 +18,8 @@ import java.util.List;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/validation/v3/items")
-public class ValidationItemControllerV3 {
+@RequestMapping("/validation/items")
+public class ValidationItemController {
 
     private final ItemRepository itemRepository;
 
@@ -27,13 +27,13 @@ public class ValidationItemControllerV3 {
     public String items(Model model) {
         List<Item> items = itemRepository.findAll();
         model.addAttribute("items", items);
-        return "validation/v3/items";
+        return "validation/items";
     }
 
     @GetMapping("/add")
     public String addForm(Model model) {
         model.addAttribute("item", new Item());
-        return "validation/v3/addForm";
+        return "validation/addForm";
     }
 
     @PostMapping("/add")
@@ -50,27 +50,27 @@ public class ValidationItemControllerV3 {
 
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);
-            return "validation/v3/addForm";
+            return "validation/addForm";
         }
 
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
-        return "redirect:/validation/v3/items/{itemId}";
+        return "redirect:/validation/items/{itemId}";
     }
 
     @GetMapping("/{itemId}")
     public String item(@PathVariable long itemId, Model model) {
         Item item = itemRepository.findById(itemId);
         model.addAttribute("item", item);
-        return "validation/v3/item";
+        return "validation/item";
     }
 
     @GetMapping("/{itemId}/edit")
     public String editForm(@PathVariable long itemId, Model model) {
         Item item = itemRepository.findById(itemId);
         model.addAttribute("item", item);
-        return "validation/v3/editForm";
+        return "validation/editForm";
     }
 
     @PostMapping("/{itemId}/edit")
@@ -87,11 +87,11 @@ public class ValidationItemControllerV3 {
 
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);
-            return "validation/v3/editForm";
+            return "validation/editForm";
         }
 
         itemRepository.update(itemId, item);
         redirectAttributes.addAttribute("status", true);
-        return "redirect:/validation/v3/items/{itemId}";
+        return "redirect:/validation/items/{itemId}";
     }
 }
