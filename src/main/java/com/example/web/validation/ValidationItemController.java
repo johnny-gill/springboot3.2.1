@@ -2,8 +2,8 @@ package com.example.web.validation;
 
 import com.example.domain.item.Item;
 import com.example.domain.item.ItemRepository;
-import com.example.domain.item.SaveCheck;
-import com.example.domain.item.UpdateCheck;
+import com.example.domain.item.ItemSaveForm;
+import com.example.domain.item.ItemUpdateForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -37,12 +37,10 @@ public class ValidationItemController {
     }
 
     @PostMapping("/add")
-    public String add(@Validated(SaveCheck.class) @ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        Integer price = item.getPrice();
-        Integer quantity = item.getQuantity();
+    public String add(@Validated @ModelAttribute("item") ItemSaveForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
-        if (price != null && quantity != null) {
-            int resultPrice = price * quantity;
+        if (form.getPrice() != null && form.getQuantity() != null) {
+            int resultPrice = form.getPrice() * form.getQuantity();
             if (resultPrice < 10000) {
                 bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, null);
             }
@@ -52,6 +50,11 @@ public class ValidationItemController {
             log.info("errors={}", bindingResult);
             return "validation/addForm";
         }
+
+        Item item = new Item();
+        item.setItemName(form.getItemName());
+        item.setPrice(form.getPrice());
+        item.setQuantity(form.getQuantity());
 
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
@@ -74,12 +77,10 @@ public class ValidationItemController {
     }
 
     @PostMapping("/{itemId}/edit")
-    public String edit(@PathVariable Long itemId, @Validated(UpdateCheck.class) @ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        Integer price = item.getPrice();
-        Integer quantity = item.getQuantity();
+    public String edit(@PathVariable Long itemId, @Validated @ModelAttribute("item") ItemUpdateForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
-        if (price != null && quantity != null) {
-            int resultPrice = price * quantity;
+        if (form.getPrice() != null && form.getQuantity() != null) {
+            int resultPrice = form.getPrice() * form.getQuantity();
             if (resultPrice < 10000) {
                 bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, null);
             }
@@ -89,6 +90,11 @@ public class ValidationItemController {
             log.info("errors={}", bindingResult);
             return "validation/editForm";
         }
+
+        Item item = new Item();
+        item.setItemName(form.getItemName());
+        item.setPrice(form.getPrice());
+        item.setQuantity(form.getQuantity());
 
         itemRepository.update(itemId, item);
         redirectAttributes.addAttribute("status", true);
