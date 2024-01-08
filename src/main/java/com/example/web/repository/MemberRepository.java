@@ -1,5 +1,6 @@
-package com.example.domain.member;
+package com.example.web.repository;
 
+import com.example.domain.member.Member;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 

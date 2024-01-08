@@ -1,4 +1,4 @@
-package com.example.web;
+package com.example.web.controller.home;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

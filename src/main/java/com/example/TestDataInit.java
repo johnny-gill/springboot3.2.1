@@ -1,7 +1,7 @@
 package com.example;
 
 import com.example.domain.member.Member;
-import com.example.domain.member.MemberRepository;
+import com.example.web.repository.MemberRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

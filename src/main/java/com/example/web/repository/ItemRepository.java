@@ -1,5 +1,6 @@
-package com.example.domain.item;
+package com.example.web.repository;
 
+import com.example.domain.item.Item;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
