@@ -1,7 +1,7 @@
-package com.example.web.controller.validation;
+package com.example.controller.validation;
 
 import com.example.domain.item.Item;
-import com.example.web.repository.ItemRepository;
+import com.example.repository.item.ItemRepository;
 import com.example.domain.item.ItemSaveForm;
 import com.example.domain.item.ItemUpdateForm;
 import lombok.RequiredArgsConstructor;

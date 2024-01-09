@@ -1,6 +1,6 @@
-package com.example.web.controller.validation;
+package com.example.controller.validation;
 
-import com.example.web.repository.ItemRepository;
+import com.example.repository.item.ItemRepository;
 import com.example.domain.item.ItemSaveForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

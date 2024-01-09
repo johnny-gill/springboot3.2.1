@@ -1,7 +1,7 @@
-package com.example.web.controller.member;
+package com.example.controller.member;
 
 import com.example.domain.member.Member;
-import com.example.web.repository.MemberRepository;
+import com.example.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

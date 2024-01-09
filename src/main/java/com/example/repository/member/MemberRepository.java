@@ -1,4 +1,4 @@
-package com.example.web.repository;
+package com.example.repository.member;
 
 import com.example.domain.member.Member;
 import lombok.extern.slf4j.Slf4j;
