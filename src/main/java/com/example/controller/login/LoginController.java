@@ -1,12 +1,11 @@
 package com.example.controller.login;
 
-import com.example.common.SessionManager;
+import com.example.constant.SessionConst;
 import com.example.domain.login.LoginForm;
 import com.example.domain.member.Member;
 import com.example.service.login.LoginService;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
 @Controller
@@ -23,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LoginController {
 
     private final LoginService loginService;
-    private final SessionManager sessionManager;
 
     @GetMapping("/login")
     public String loginForm(@ModelAttribute LoginForm loginForm) {
@@ -31,7 +28,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(@Valid @ModelAttribute LoginForm loginForm, BindingResult bindingResult, HttpServletResponse response) {
+    public String login(@Valid @ModelAttribute LoginForm loginForm, BindingResult bindingResult, HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
             log.error("error={}", bindingResult);
             return "login/loginForm";
@@ -44,14 +41,19 @@ public class LoginController {
             return "login/loginForm";
         }
 
-        sessionManager.createSession(loginMember, response);
+        HttpSession session = request.getSession();
+        session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
 
         return "redirect:/";
     }
 
     @PostMapping("/logout")
     public String logout(HttpServletRequest request) {
-        sessionManager.expire(request);
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+
         return "redirect:/";
     }
 

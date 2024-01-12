@@ -1,9 +1,11 @@
 package com.example.controller;
 
 import com.example.common.SessionManager;
+import com.example.constant.SessionConst;
 import com.example.domain.member.Member;
 import com.example.repository.member.MemberRepository;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -16,12 +18,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class HomeController {
 
-    private final MemberRepository memberRepository;
-    private final SessionManager sessionManager;
-
     @GetMapping("/")
     public String home(Model model, HttpServletRequest request) {
-        Member member = (Member) sessionManager.getSession(request);
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return "home";
+        }
+
+        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
         if (member == null) {
             return "home";
         }
