@@ -1,9 +1,11 @@
 package com.example.controller.login;
 
+import com.example.common.SessionManager;
 import com.example.domain.login.LoginForm;
 import com.example.domain.member.Member;
 import com.example.service.login.LoginService;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LoginController {
 
     private final LoginService loginService;
+    private final SessionManager sessionManager;
 
     @GetMapping("/login")
     public String loginForm(@ModelAttribute LoginForm loginForm) {
@@ -41,22 +44,15 @@ public class LoginController {
             return "login/loginForm";
         }
 
-        Cookie idCookie = new Cookie("memberId", String.valueOf(loginMember.getId()));
-        response.addCookie(idCookie);
+        sessionManager.createSession(loginMember, response);
 
         return "redirect:/";
     }
 
     @PostMapping("/logout")
-    public String logout(HttpServletResponse response) {
-        expireCookie(response, "memberId");
+    public String logout(HttpServletRequest request) {
+        sessionManager.expire(request);
         return "redirect:/";
-    }
-
-    private void expireCookie(HttpServletResponse response, String cookieName) {
-        Cookie cookie = new Cookie(cookieName, null);
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
     }
 
 }

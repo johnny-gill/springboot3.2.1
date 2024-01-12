@@ -13,12 +13,15 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class SessionManager {
 
-    // session cookie : {mySessionId: uuid}
-    // session : {uuid: obj}
-
     public static final String SESSION_COOKIE_NAME = "mySessionId";
     private final Map<String, Object> sessionStore = new ConcurrentHashMap<>();
 
+    /**
+     * Session = {SessionID(UUID), Member}, 서버에서 관리
+     * Cookie = {SESSION_COOKIE_NAME, SessionID(UUID)}, response에 담아 전달
+     * @param value
+     * @param response
+     */
     public void createSession(Object value, HttpServletResponse response) {
         String sessionId = UUID.randomUUID().toString();
         sessionStore.put(sessionId, value);
