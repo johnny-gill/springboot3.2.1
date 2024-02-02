@@ -1,4 +1,4 @@
-package com.example.common;
+package com.example.component;
 
 import com.example.domain.member.Member;
 import org.junit.jupiter.api.Test;
