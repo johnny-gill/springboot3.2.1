@@ -30,7 +30,6 @@ public class LoginController {
 
     @PostMapping("/login")
     public String login(@Valid @ModelAttribute LoginForm loginForm, BindingResult bindingResult, HttpServletRequest request, @RequestParam(defaultValue = "/") String redirectURL) {
-        System.out.println("꾸꾸>>>>>>>>>>>>>>>>>" + redirectURL);
 
         if (bindingResult.hasErrors()) {
             log.error("error={}", bindingResult);
