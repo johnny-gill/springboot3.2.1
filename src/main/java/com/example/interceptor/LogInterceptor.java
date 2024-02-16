@@ -18,11 +18,11 @@ public class LogInterceptor implements HandlerInterceptor {
         String uuid = UUID.randomUUID().toString();
         request.setAttribute(LOG_ID, uuid);
 
-        if (handler instanceof HandlerMethod) {
-            HandlerMethod hm = (HandlerMethod) handler;
-        }
+//        if (handler instanceof HandlerMethod) {
+//            HandlerMethod hm = (HandlerMethod) handler;
+//        }
 
-        log.info("Request [{}][{}][{}]", uuid, requestURI, handler);
+        log.info("Request [{}][{}][{}][{}]", uuid, request.getDispatcherType(), requestURI, handler);
         return true;
     }
 
@@ -34,8 +34,8 @@ public class LogInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         String requestURI = request.getRequestURI();
-        String logId = (String) request.getAttribute(LOG_ID);
-        log.info("Response [{}][{}]", logId, requestURI);
+        String uuid = (String) request.getAttribute(LOG_ID);
+        log.info("Response [{}][{}][{}]", uuid, request.getDispatcherType(), requestURI);
         if (ex != null) {
             log.error("afterCompletion error", ex);
         }
