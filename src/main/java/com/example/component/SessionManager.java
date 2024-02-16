@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Component
+//@Component
 public class SessionManager {
 
     public static final String SESSION_COOKIE_NAME = "mySessionId";
