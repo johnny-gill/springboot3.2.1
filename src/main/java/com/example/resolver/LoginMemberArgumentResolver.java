@@ -1,4 +1,4 @@
-package com.example.argumentresolver;
+package com.example.resolver;
 
 import com.example.constant.SessionConst;
 import com.example.domain.member.Member;

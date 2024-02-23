@@ -1,14 +1,8 @@
 package com.example;
 
-import com.example.argumentresolver.LoginMemberArgumentResolver;
-import com.example.filter.LogFilter;
-import com.example.filter.LoginCheckFilter;
+import com.example.resolver.LoginMemberArgumentResolver;
 import com.example.interceptor.LogInterceptor;
 import com.example.interceptor.LoginCheckInterceptor;
-import jakarta.servlet.DispatcherType;
-import jakarta.servlet.Filter;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

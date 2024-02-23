@@ -1,4 +1,4 @@
-package com.example.argumentresolver;
+package com.example.resolver;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
