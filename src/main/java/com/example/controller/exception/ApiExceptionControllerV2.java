@@ -14,28 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class ApiExceptionControllerV2 {
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ErrorResult illegalHandle(IllegalArgumentException e) {
-        log.error("[exceptionHandle] ex", e);
-        return new ErrorResult("BAD", e.getMessage());
-    }
 
-    // 예외 생략시 parameter 예외 지정됨
-    @ExceptionHandler
-    public ResponseEntity<ErrorResult> userExHandle(UserException e) {
-        log.error("[exceptionHandle] ex", e);
-        ErrorResult errorResult = new ErrorResult("USER-EX", e.getMessage());
-        return new ResponseEntity<>(errorResult, HttpStatus.BAD_REQUEST);
-    }
-
-    // 예외 생략시 parameter 예외 지정됨
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler
-    public ErrorResult exHandle(Exception e) {
-        log.error("[exceptionHandle] ex", e);
-        return new ErrorResult("EX", "내부 오류");
-    }
 
     @GetMapping("/api2/members/{id}")
     public MemberDto getMember(@PathVariable String id) {
