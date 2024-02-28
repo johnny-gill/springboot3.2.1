@@ -1,28 +1,17 @@
 package com.example.controller.converter;
 
 import com.example.domain.type.IpPort;
-import jakarta.servlet.http.HttpServletRequest;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
-@Slf4j
-@RestController
+@Controller
 public class ConverterController {
 
-    @GetMapping("/converter-v1")
-    public String converterV1(HttpServletRequest request) {
-        String data = request.getParameter("data");
-        Integer intValue = Integer.valueOf(data);
-        log.info("intValue = {}", intValue);
-        return "ok";
-    }
-
-    @GetMapping("/ip-port")
-    public String ipPort(@RequestParam IpPort ipPort) {
-        log.info("ipPort.getIp()={}", ipPort.getIp());
-        log.info("ipPort.getPort()={}", ipPort.getPort());
-        return "ok";
+    @GetMapping("/converter-view")
+    public String converterView(Model model) {
+        model.addAttribute("number", 10000);
+        model.addAttribute("ipPort", new IpPort("127.0.0.1", 9000));
+        return "converter/converter-view";
     }
 }
