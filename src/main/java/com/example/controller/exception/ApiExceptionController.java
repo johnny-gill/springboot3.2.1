@@ -1,8 +1,8 @@
 package com.example.controller.exception;
 
+import com.example.exception.UserException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +14,6 @@ import java.util.UUID;
 @RestController
 public class ApiExceptionController {
 
-
     @GetMapping("/api/members/{id}")
     public MemberDto getMember(@PathVariable String id) {
 
@@ -24,6 +23,10 @@ public class ApiExceptionController {
 
         if (id.equals("bad")) {
             throw new IllegalArgumentException("잘못된 입력 값");
+        }
+
+        if (id.equals("user-ex")) {
+            throw new UserException("사용자 오류");
         }
 
         return new MemberDto(id, UUID.randomUUID().toString());

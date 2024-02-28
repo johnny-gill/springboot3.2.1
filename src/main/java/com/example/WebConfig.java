@@ -4,6 +4,7 @@ import com.example.resolver.LoginMemberArgumentResolver;
 import com.example.interceptor.LogInterceptor;
 import com.example.interceptor.LoginCheckInterceptor;
 import com.example.resolver.MyHandlerExceptionResolver;
+import com.example.resolver.UserHandlerExceptionResolver;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.HandlerExceptionResolver;
@@ -46,5 +47,6 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
         resolvers.add(new MyHandlerExceptionResolver());
+        resolvers.add(new UserHandlerExceptionResolver());
     }
 }
