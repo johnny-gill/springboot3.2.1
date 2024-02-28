@@ -1,11 +1,16 @@
 package com.example;
 
+import com.example.converter.IntegerToStringConverter;
+import com.example.converter.IpPortToStringConverter;
+import com.example.converter.StringToIntegerConverter;
+import com.example.converter.StringToIpPortConverter;
 import com.example.resolver.LoginMemberArgumentResolver;
 import com.example.interceptor.LogInterceptor;
 import com.example.interceptor.LoginCheckInterceptor;
 import com.example.resolver.MyHandlerExceptionResolver;
 import com.example.resolver.UserHandlerExceptionResolver;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -48,5 +53,13 @@ public class WebConfig implements WebMvcConfigurer {
     public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
         resolvers.add(new MyHandlerExceptionResolver());
         resolvers.add(new UserHandlerExceptionResolver());
+    }
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new StringToIntegerConverter());
+        registry.addConverter(new IntegerToStringConverter());
+        registry.addConverter(new StringToIpPortConverter());
+        registry.addConverter(new IpPortToStringConverter());
     }
 }
