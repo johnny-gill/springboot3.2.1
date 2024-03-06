@@ -4,6 +4,7 @@ import com.example.converter.IntegerToStringConverter;
 import com.example.converter.IpPortToStringConverter;
 import com.example.converter.StringToIntegerConverter;
 import com.example.converter.StringToIpPortConverter;
+import com.example.formatter.MyNumberFormatter;
 import com.example.resolver.LoginMemberArgumentResolver;
 import com.example.interceptor.LogInterceptor;
 import com.example.interceptor.LoginCheckInterceptor;
@@ -57,9 +58,10 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(new StringToIntegerConverter());
-        registry.addConverter(new IntegerToStringConverter());
+//        registry.addConverter(new StringToIntegerConverter());
+//        registry.addConverter(new IntegerToStringConverter());
         registry.addConverter(new StringToIpPortConverter());
         registry.addConverter(new IpPortToStringConverter());
+        registry.addFormatter(new MyNumberFormatter());
     }
 }
