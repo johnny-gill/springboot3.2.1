@@ -19,19 +19,19 @@ import java.util.Collection;
 
 @Slf4j
 @Controller
-@RequestMapping("/file-upload/servlet")
-public class ServletUploadController {
+@RequestMapping("/file-upload")
+public class FileUploadController {
 
     @Value("${file.dir}")
     private String fileDir;
 
     @GetMapping("/v1/upload")
-    public String uploadFormV1() {
+    public String v1UploadForm() {
         return "file-upload/upload-form";
     }
 
     @PostMapping("/v1/upload")
-    public String uploadV1(HttpServletRequest request) throws ServletException, IOException {
+    public String v1Upload(HttpServletRequest request) throws ServletException, IOException {
         log.info("request={}", request);
 
         String itemName = request.getParameter("itemName");
@@ -44,12 +44,12 @@ public class ServletUploadController {
     }
 
     @GetMapping("/v2/upload")
-    public String uploadFormV2() {
+    public String v2UploadForm() {
         return "file-upload/upload-form";
     }
 
     @PostMapping("/v2/upload")
-    public String uploadV2(HttpServletRequest request) throws IOException, ServletException {
+    public String v2Upload(HttpServletRequest request) throws IOException, ServletException {
         log.info("request={}", request);
 
         String itemName = request.getParameter("itemName");
